@@ -18,11 +18,10 @@ button{
     height: 8vh;
     font-size: 1.2em;
     border-radius: 15px;
-    font-family: 'Oleo Script', cursive;
-    
-
+    font-family: 'Oleo Script', cursive;    
 
 }
+
 #buttons{
     
     margin: auto;

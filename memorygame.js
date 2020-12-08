@@ -113,16 +113,31 @@ function changeCard()
         //set timer for  the reveal and reveal
         if (flippedCards[0].color===flippedCards[1].color)
             {
-                setTimeout (function ()
+                
+                //stop the user from clicking any of the tiles
+                for (a=0;a<cardsArr.length;a++)
                 {
+                    cardsArr[a].removeEventListener("click",changeCard);
+                }
+                
+                setTimeout (function ()
+                {    
+
                 flippedCards[0].style.visibility="hidden";
                 flippedCards[0].flipped=false;
 
                 flippedCards[1].style.visibility="hidden";
                 flippedCards[1].flipped=false;
                 flippedCards=[];
+
+                for (a=0;a<cardsArr.length;a++)
+                {
+                    //make tiles clickable again
+                    cardsArr[a].addEventListener("click",changeCard);
+                }
                 }, 1100);
 
+                
                 cardsSolved+=2;
             }
         else
@@ -130,6 +145,11 @@ function changeCard()
               
                 flippedCards[1].style.background=
                 flippedCards[1].color;
+
+                for (a=0;a<cardsArr.length;a++)
+                {
+                    cardsArr[a].removeEventListener("click",changeCard);
+                }
 
                 setTimeout(function()
                 {
@@ -140,6 +160,11 @@ function changeCard()
                     flippedCards[1].style.background="radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%)";
                     flippedCards[1].flipped=false;
                     flippedCards=[];
+                    
+                    for (a=0;a<cardsArr.length;a++)
+                {
+                    cardsArr[a].addEventListener("click",changeCard);
+                }
                 } ,1100);
                 
             }
