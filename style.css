@@ -1,0 +1,54 @@
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    background: rgb(47, 47, 48);
+    color: white;
+    font-family: 'Oleo Script', cursive;
+    
+}
+h1{
+    text-align: center;
+    font-size: 5em;
+}
+button{
+    margin:20px;
+    width: 15vw;
+    height: 8vh;
+    font-size: 1.2em;
+    border-radius: 15px;
+    font-family: 'Oleo Script', cursive;
+    
+
+
+}
+#buttons{
+    
+    margin: auto;
+    width:80%;
+    display:flex;
+    justify-content: center;
+    
+}
+#cardsection{
+   
+    width: 80vw;
+    margin: auto;
+}
+.row{
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    margin: auto;
+}
+.card{
+    margin: 20px;
+    background: white;
+    height: 25vh;
+    width: 10vw;
+    border-radius: 10px;
+    position: relative;
+    border: solid black 2px;
+    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+}
