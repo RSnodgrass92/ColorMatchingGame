@@ -9,7 +9,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="blackout"></div>
+<div class="popup" id="startPop">
+    <p id="startMsg">  How many tiles would you like to play with? It must be an even number.
+    </p>  
+    <input type="text" id="userinput">
+    <button id="enterbtn">Enter</button>
+</div>
+<div class="popup" id="endPop">
+    <p>Congrats you won! Hit OK to start a new game.</p>
+    <button id="okbtn">ok</button>
+</div>
 <h1>Memory Game</h1>
+
 <section id="buttons">
     <button id="startbtn">Start Game</button>
     <button id="resetbtn">Restart</button>

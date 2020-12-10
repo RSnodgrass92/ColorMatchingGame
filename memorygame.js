@@ -1,80 +1,108 @@
 let validInput=false;
-let numTiles=0;
+let numTiles="";
 let colorsArr=[];
 let cardsArr=[];
 let cardsSolved=0;
 
-const startbtn = document.querySelector("#startbtn")
-const cardsection = document.querySelector("#cardsection")
-const resetbtn= document.querySelector("#resetbtn")
+const startbtn = document.querySelector("#startbtn");
+const resetbtn= document.querySelector("#resetbtn");
+const cardsection = document.querySelector("#cardsection");
+
+
+const startPop=document.querySelector("#startPop");
+const endPop=document.querySelector("#endPop");
+const blackout=document.querySelector("#blackout");
+const enterbtn=document.querySelector("#enterbtn");
+const okbtn=document.querySelector("#okbtn")
+const txtbox=document.querySelector("#userinput");
+const startMsg= document.querySelector("#startMsg");
+
 startbtn.addEventListener("click",startGame);
 resetbtn.addEventListener("click",resetGame);
+enterbtn.addEventListener("click", validateInput);
+okbtn.addEventListener("click",function()
+{
+ endPop.style.display= "none";
+});
 
-//!turn off start button while game is running fix zero input and negative input add colorblind mode; add the hexcode for people to see.
-
+//! add colorblind mode; add the hexcode for people to see.
 function startGame()
 {
-   if (numTiles===0)
+startPop.style.display= "block";
+blackout.style.display="block";
+txtbox.focus();
+}
+
+function validateInput()
+{
+   numTiles= +txtbox.value;
+   if (txtbox.value !=="")
    {
-
-   validInput=false;
-    while(validInput===false) 
-    {
-        let isANumber= true;
-     
-        let isEven= true;
-        
-        numTiles= prompt("how many tiles would you like to play with, it must be an even number"); 
-        if (isNaN(numTiles))
-        {
-            alert("Invalid Input that is NOT a number");
-            isANumber=false;
-          
-        }
-
-         else if (numTiles%2!==0 && isANumber=== true)
-        {
-            alert("The number must be even");
-            isEven = false;
-        }
-        else 
-        {
-            validInput=true;
-        }
-    }
-   //generate colors array
-    colorsArr= genColorArray();
-    
-    //generate row/col
-    const numRows=findNumRow();
-    const numCol= (numTiles/numRows); 
-    console.log(numCol);
-    //append rows to section append col to 
-    let sliceStart=0;
-    let sliceEnd=numCol;
-    for (a=0;a<numRows;a++)
-        {
-         let row= document.createElement("div");
-         
-         row.className+="row";
-         cardsection.appendChild(row);
-            
-            for(b=0;b<numCol;b++)
+            if (txtbox.value==="0")
             {
-                let card= document.createElement("div")
-                card.className+="card";
-                card.color= colorsArr.slice(sliceStart,sliceEnd)[b];
-                card.flipped=false;
-                card.addEventListener("click",changeCard);
-                cardsArr.push(card);
-                row.appendChild(card);
+                startMsg.innerHTML="You can not play a game with 0 tiles. Please enter an even number."
+            }    
+            else if (isNaN(numTiles))
+            {
+                startMsg.innerHTML="Invalid Input. That is not a number. Please enter an even number.";
+            }
+    
+            else if (numTiles%2!==0)
+            {
+                startMsg.innerHTML="That number is not even, please enter an even number.";
                 
             }
-            sliceStart+=numCol;
-            sliceEnd+=numCol;
-        }
-    } 
+            else 
+            {
+                startPop.style.display= "none";
+                blackout.style.display="none";
+                while (cardsection.childNodes.length>0)
+                {
+                    cardsection.removeChild(cardsection.lastChild);
+                }
+                runGame();
+            }
+    txtbox.value="";
+    }      
 }
+
+function runGame()
+{
+       
+       //generate colors array
+       colorsArr= genColorArray();
+    
+       //generate row/col
+       const numRows=findNumRow();
+       const numCol= (numTiles/numRows); 
+      
+       //append rows to section append col to 
+       let sliceStart=0;
+       let sliceEnd=numCol;
+       for (a=0;a<numRows;a++)
+           {
+            let row= document.createElement("div");
+            
+            row.className+="row";
+            cardsection.appendChild(row);
+               
+               for(b=0;b<numCol;b++)
+               {
+                   let card= document.createElement("div")
+                   card.className+="card";
+                   card.color= colorsArr.slice(sliceStart,sliceEnd)[b];
+                   card.flipped=false;
+                   card.addEventListener("click",changeCard);
+                   cardsArr.push(card);
+                   row.appendChild(card);
+                   
+               }
+               sliceStart+=numCol;
+               sliceEnd+=numCol;
+           }
+}
+
+
 function findNumRow()
 {
     let factorsArr=[];
@@ -107,7 +135,7 @@ function changeCard()
                 
             }
         }
-    console.log(flippedCards);
+    
     if (flippedCards.length === 2)
     {
         //set timer for  the reveal and reveal
@@ -174,7 +202,8 @@ function changeCard()
     {
        setTimeout(function()
        {
-       alert ("congrats you win\n\n hit OK to start a new game");
+        endPop.style.display= "block";
+        blackout.style.display="block";
        resetGame();
        startGame();
        }
@@ -184,7 +213,7 @@ function changeCard()
 }
 function resetGame()
 {
-    numTiles=0;
+    numTiles="";
     while (cardsection.childNodes.length>0)
     {
         cardsection.removeChild(cardsection.lastChild);
